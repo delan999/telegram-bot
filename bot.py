@@ -24,13 +24,14 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_state[chat_id] = 'fim'
 
 async def main():
-    import os
+import os
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
+
+# ... seu código de handlers continua igual ...
+
+if __name__ == "__main__":
     token = os.getenv("TELEGRAM_TOKEN")
     app = ApplicationBuilder().token(token).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    await app.run_polling()
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    app.run_polling()
